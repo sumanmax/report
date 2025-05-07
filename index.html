@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Extractor</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f7f4d5; }
+    h1 { font-size: 32px; font-weight: bold; text-align: center; color: #000000; margin-bottom: 20px; }
+    textarea, button { width: 100%; margin-top: 10px; padding: 10px; font-size: 16px; }
+    table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+    th, td { padding: 10px; border: 1px solid #f0f7cd; text-align: center; }
+    th { background: #9ed0ff; }
+    .btn { cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h1>𝕊𝕂𝕐𝔼𝕏ℂℍ ℝ𝔼ℙ𝕆ℝ𝕋</h1> <!-- ✅ Big top title added -->
+
+  <h2>👇🏻Paste Data👇🏻</h2>
+  <textarea id="input" rows="12" placeholder="Paste data here..."></textarea>
+  
+  <button class="btn" onclick="extractAndDisplayData()">SUBMIT</button>
+  <button class="btn" onclick="copyTableData()">Copy</button>
+
+  <h3>Result:</h3>
+  <table id="outputTable">
+    <thead>
+      <tr><th>DEPOSIT</th><th>WITHDRAWAL</th><th>D COUNT</th><th>W COUNT</th><th>BONUS</th><th>TOTAL USER</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="deposit"></td><td id="withdrawal"></td><td id="dCount"></td><td id="wCount"></td><td id="bonus"></td><td id="totalUser"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
