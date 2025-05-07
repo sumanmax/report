@@ -41,8 +41,8 @@ function extractAndDisplayData() {
 }
 
 function copyTableData() {
-  const text = [...document.getElementById('outputTable').rows]
-    .map(r => [...r.cells].map(c => c.innerText).join('\t')).join('\n');
+  const row = document.getElementById('outputTable').rows[1]; // Only data row
+  const text = [...row.cells].map(c => c.innerText).join('\t'); // Skip headers
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.querySelector("button[onclick='copyTableData()']");
     const bg = btn.style.backgroundColor;
