@@ -1,26 +1,41 @@
-function extractAndDisplayData() {
-  const input = document.getElementById('input').value;
+// script.js
 
-  const labels = {
-    deposit: ["TOTAL DEPOSIT", "TOTAL DEPOSITE", "DEPOSIT AMOUNT", "DEPOSITE AMOUNT"],
-    withdrawal: ["TOTAL WITHDRAWAL", "WITHDRAWAL AMOUNT", "WITHDRAW AMOUNT"],
-    dCount: ["NO. OF DEPOSITS"],
-    wCount: ["NO. OF WITHDRAWALS"],
-    bonus: ["BONUS", "TODAY BONUS", "TODAY BONUS AMOUNT", "TOTAL BONUS"],
-    totalUser: ["TOTAL USER"]
-  };
+function normalize(text) {
+  return text
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, '')   // remove all symbols/spaces
+    .replace(/0/g, 'O')          // fix common OCR errors
+    .replace(/1/g, 'I');
+}
 
-  // All common separators
-  const separators = "\\s*(?::-₹|:-|:-₹|-₹|-:|:|=|₹|-)?\\s*";
+function fuzzyMatch(text, keywords) {
+  const normText = normalize(text);
+  return keywords.some(keyword => {
+    const normKeyword = normalize(keyword);
+    return normText.includes(normKeyword);
+  });
+}
 
-  const getValue = keys => {
-    for (let key of keys) {
-      const regex = new RegExp(key.replace(/\./g, "\\.") + separators + "([\\d,]+)", "i");
-      const match = input.match(regex);
+function extractValue(lines, keywords) {
+  for (let line of lines) {
+    if (fuzzyMatch(line, keywords)) {
+      const match = line.match(/(\d[\d,]*)/);
       if (match) return match[1].replace(/,/g, '');
     }
-    return '0';
-  };
+  }
+  return '0';
+}
+
+function extractAndDisplayData() {
+  const rawInput = document.getElementById('input').value.toUpperCase();
+  const lines = rawInput.split('\n');
+
+  const deposit = extractValue(lines, ["TOTAL DEPOSIT", "TOTAL DEPOSITS","DEPOSITS AMOUNT","DEPOSIT AMOUNT"]);
+  const withdrawal = extractValue(lines, ["TOTAL WITHDRAWAL", "WITHDRAWAL AMOUNT", "TOTAL WITHDRAW AMOUNT", "WITHDRAW AMOUNT","TOTAL WITHDRAWAL AMOUNT"]);
+  const dCount = extractValue(lines, ["NO OF DEPOSIT","NUMBER OF DEPOSIT","DEPOSIT COUNT", "NUMBER DEPOSIT"]);
+  const wCount = extractValue(lines, ["NO OF WITHDRAWAL","COUNT OF WITHDRAWAL","WITHDRAWAL COUNT", "NUMBER OF WITHDRAWAL"]);
+  const bonus = extractValue(lines, ["BONUS", "TOTAL BONUS", "TODAY BONUS", "BONUS AMOUNT"]);
+  const totalUser = extractValue(lines, ["TOTAL USER"]);
 
   const set = (id, val, flag) => {
     const el = document.getElementById(id);
@@ -29,25 +44,31 @@ function extractAndDisplayData() {
     el.style.fontWeight = flag ? "bold" : "normal";
   };
 
-  const d = getValue(labels.deposit), w = getValue(labels.withdrawal), dc = getValue(labels.dCount),
-        wc = getValue(labels.wCount), b = getValue(labels.bonus), u = getValue(labels.totalUser);
-
-  set("deposit", d, +d > 2000000);
-  set("withdrawal", `-${w}`, +w > 2000000);
-  set("dCount", dc, +dc > 500);
-  set("wCount", wc, +wc > 200);
-  set("bonus", b, +b > 10000);
-  set("totalUser", u);
+  set("deposit", deposit, +deposit > 2000000);
+  set("withdrawal", `-${withdrawal}`, +withdrawal > 2000000);
+  set("dCount", dCount, +dCount > 500);
+  set("wCount", wCount, +wCount > 200);
+  set("bonus", bonus, +bonus > 10000);
+  set("totalUser", totalUser);
 }
 
 function copyTableData() {
-  const row = document.getElementById('outputTable').rows[1]; // Only data row
-  const text = [...row.cells].map(c => c.innerText).join('\t'); // Skip headers
+  const rows = [...document.getElementById('outputTable').rows].slice(1);
+  const text = rows.map(r => [...r.cells].map(c => c.innerText).join('\t')).join('\n');
+
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.querySelector("button[onclick='copyTableData()']");
-    const bg = btn.style.backgroundColor;
-    btn.style.backgroundColor = "#4caf50";
+    const originalBg = btn.style.backgroundColor;
+    const originalColor = btn.style.color;
+
+    btn.style.backgroundColor = "#4CAF50"; // Green
     btn.style.color = "#fff";
-    setTimeout(() => { btn.style.backgroundColor = bg; btn.style.color = ""; }, 20);
+
+    setTimeout(() => {
+      btn.style.backgroundColor = originalBg || '';
+      btn.style.color = originalColor || '';
+    }, 20); // 1 second
   });
 }
+
+
