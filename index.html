@@ -4,26 +4,63 @@
   <meta charset="UTF-8">
   <title>Data Extractor</title>
   <style>
-    body { font-family: Arial; background: #f7f4d5; padding: 20px; }
-    h1 { text-align: center; font-size: 32px; margin-bottom: 10px; }
-    textarea, button { width: 100%; margin: 10px 0; padding: 10px; font-size: 16px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-    th { background: #d4ebff; }
+    body { font-family: Arial, sans-serif; padding: 10px; }
+    textarea { width: 100%; height: 150px; margin-bottom: 10px; font-family: monospace; }
+    table, td, th { border: 1px solid #000; border-collapse: collapse; padding: 5px; text-align: center; }
+    table { width: 100%; margin-top: 10px; }
+    button { padding: 6px 12px; margin-top: 10px; cursor: pointer; }
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .branch-label { margin-top: 30px; }
   </style>
 </head>
 <body>
-  <h1>𝕊𝕂𝕐𝔼𝕏ℂℍ ℝ𝔼ℙ𝕆ℝ𝕋</h1>
-  <textarea id="input" rows="10" placeholder="Paste your data here..."></textarea>
+
+  <!-- Top Header -->
+  <div class="top-header">
+    <div style="font-weight: bold; font-size: 16px;">
+      DATE: <input type="date" id="reportDate">
+    </div>
+    <div style="text-align: center; flex: 1;">
+      <h1 style="margin: 0; font-weight: bold;">𝕊𝕂𝕐𝔼𝕏ℂℍ ℝ𝔼ℙ𝕆ℝ𝕋</h1>
+    </div>
+    <div style="width: 100px;"></div>
+  </div>
+
+  <h3>Paste Data</h3>
+  <textarea id="input" placeholder="Paste your data here..."></textarea>
   <button onclick="extractAndDisplayData()">SUBMIT</button>
-  <button onclick="copyTableData()">COPY</button>
+
   <table id="outputTable">
-    <tr><th>DEPOSIT</th><th>WITHDRAWAL</th><th>D COUNT</th><th>W COUNT</th><th>BONUS</th><th>TOTAL USER</th></tr>
     <tr>
-      <td id="deposit"></td><td id="withdrawal"></td><td id="dCount"></td>
-      <td id="wCount"></td><td id="bonus"></td><td id="totalUser"></td>
+      <th>Deposit</th>
+      <th>Withdrawal</th>
+      <th>No. of Deposits</th>
+      <th>No. of Withdrawals</th>
+      <th>Bonus</th>
+      <th>Total Users</th>
+    </tr>
+    <tr>
+      <td id="deposit">0</td>
+      <td id="withdrawal">0</td>
+      <td id="dCount">0</td>
+      <td id="wCount">0</td>
+      <td id="bonus">0</td>
+      <td id="totalUser">0</td>
     </tr>
   </table>
+
+  <div class="branch-label">
+    <strong>Branch:</strong> <span id="branch" style="font-weight: bold;"> </span>
+  </div>
+
+  <button onclick="copyTableData()" id="copyBtn">Copy</button>
+
+  <!-- External JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
