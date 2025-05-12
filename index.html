@@ -4,50 +4,78 @@
   <meta charset="UTF-8">
   <title>Data Extractor</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .footer {
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      color: #555;
+      padding: 10px;
+      background-color: #f8f8f8;
+      border-top: 1px solid #ccc;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Top Header -->
-  <div class="top-header">
-    <div style="font-weight: bold; font-size: 16px;">
-      DATE: <input type="date" id="reportDate">
+  <div class="content">
+    <!-- Top Header -->
+    <div class="top-header">
+      <div style="font-weight: bold; font-size: 16px;">
+        DATE: <input type="date" id="reportDate">
+      </div>
+      <div style="text-align: center; flex: 1;">
+        <h1 class="sky-title">𝕊𝕂𝕐𝔼𝕏ℂℍ ℝ𝔼ℙ𝕆ℝ𝕋</h1>
+      </div>
+      <div style="width: 100px;"></div>
     </div>
-    <div style="text-align: center; flex: 1;">
-      <h1 style="margin: 0; font-weight: bold;">𝕊𝕂𝕐𝔼𝕏ℂℍ ℝ𝔼ℙ𝕆ℝ𝕋</h1>
+
+    <h3>Paste Data</h3>
+    <textarea id="input" placeholder="Paste your data here..."></textarea>
+    <button onclick="extractAndDisplayData()">SUBMIT</button>
+
+    <table id="outputTable">
+      <tr>
+        <th>Deposit</th>
+        <th>Withdrawal</th>
+        <th>No. of Deposits</th>
+        <th>No. of Withdrawals</th>
+        <th>Bonus</th>
+        <th>Total Users</th>
+      </tr>
+      <tr>
+        <td id="deposit">0</td>
+        <td id="withdrawal">0</td>
+        <td id="dCount">0</td>
+        <td id="wCount">0</td>
+        <td id="bonus">0</td>
+        <td id="totalUser">0</td>
+      </tr>
+    </table>
+
+    <div class="branch-label">
+      <strong>Branch:</strong> <span id="branch" style="font-weight: bold;"> </span>
     </div>
-    <div style="width: 100px;"></div>
+
+    <button onclick="copyTableData()" id="copyBtn">Copy</button>
   </div>
 
-  <h3>Paste Data</h3>
-  <textarea id="input" placeholder="Paste your data here..."></textarea>
-  <button onclick="extractAndDisplayData()">SUBMIT</button>
+  <!-- Sticky Footer -->
+  <div class="footer">𒆜░░░░░░░░░░▄︻デC̷H̷E̷C̷K̷E̷R̷ ̷H̷E̷A̷D̷══━一░░░░░░░░░░𒆜
+</div>
 
-  <table id="outputTable">
-    <tr>
-      <th>Deposit</th>
-      <th>Withdrawal</th>
-      <th>No. of Deposits</th>
-      <th>No. of Withdrawals</th>
-      <th>Bonus</th>
-      <th>Total Users</th>
-    </tr>
-    <tr>
-      <td id="deposit">0</td>
-      <td id="withdrawal">0</td>
-      <td id="dCount">0</td>
-      <td id="wCount">0</td>
-      <td id="bonus">0</td>
-      <td id="totalUser">0</td>
-    </tr>
-  </table>
-
-  <div class="branch-label">
-    <strong>Branch:</strong> <span id="branch" style="font-weight: bold;"> </span>
-  </div>
-
-  <button onclick="copyTableData()" id="copyBtn">Copy</button>
-
-  <!-- External JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
