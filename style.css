@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background: #FFEFC8;
+  background: #F8F5E9;
   padding: 20px;
 }
 
@@ -25,21 +25,21 @@ table, td, th {
 table {
   width: 100%;
   margin-top: 10px;
-  background-color: #daf2f8;
+  background-color: #d5f7ff;
 }
 
 button {
   padding: 8px 16px;
   margin-top: 10px;
   cursor: pointer;
-  background-color: #1af725;
-  color: white;
+  background-color: #ff988a;
+  color: rgb;
   border: none;
   border-radius: 4px;
 }
 
 button:hover {
-  background-color: #36ee1d;
+  background-color: #ff988a;
 }
 
 .top-header {
@@ -54,7 +54,7 @@ button:hover {
 }
 
 .sky-title {
-  background: linear-gradient(90deg, #D70654, #119de9);
+  background: linear-gradient(90deg, #000000, #ff0303);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -68,5 +68,5 @@ button:hover {
 input[type="date"] {
   padding: 5px;
   border-radius: 4px;
-  border: 1px solid #ff0606;
+  border: 1px solid #ff0000;
 }
