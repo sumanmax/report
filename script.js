@@ -109,6 +109,6 @@ function copyTableData() {
     setTimeout(() => {
       btn.style.backgroundColor = originalBg || '';
       btn.style.color = originalColor || '';
-    }, 10);
+    }, 23);
   });
 }
