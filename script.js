@@ -132,7 +132,7 @@ function checkLogin() {
   const password = document.getElementById("password").value;
   const errorMsg = document.getElementById("errorMsg");
 
-  if (userId === "SKY360" && password === "Max07") {
+  if (userId === "SKY360","sky360" && password === "Max07") {
     localStorage.setItem("isLoggedIn", "true");
     showMainContent();
   } else {
