@@ -1,3 +1,4 @@
+// ===================== TEXT NORMALIZATION & FUZZY MATCHING =====================
 function normalize(text) {
   return text
     .toUpperCase()
@@ -14,6 +15,7 @@ function fuzzyMatch(text, keywords) {
   });
 }
 
+// ===================== DATA EXTRACTION =====================
 function extractValue(lines, keywords) {
   for (let line of lines) {
     if (fuzzyMatch(line, keywords)) {
@@ -49,14 +51,12 @@ function extractAndDisplayData() {
   const selectedDate = document.getElementById('reportDate').value;
   const lines = rawInput.toUpperCase().split('\n');
 
-  // Date validation
   const inputDate = extractDateFromText(rawInput);
   if (inputDate !== selectedDate) {
     reset();
     return;
   }
 
-  // Extract values
   const deposit = extractValue(lines, ["TOTAL DEPOSIT", "TOTAL DEPOSITS", "DEPOSITS AMOUNT", "DEPOSIT AMOUNT"]);
   const withdrawal = extractValue(lines, ["TOTAL WITHDRAWAL", "WITHDRAWAL AMOUNT", "TOTAL WITHDRAW AMOUNT", "WITHDRAW AMOUNT", "TOTAL WITHDRAWAL AMOUNT"]);
   const dCount = extractValue(lines, ["NO OF DEPOSIT", "NUMBER OF DEPOSIT", "DEPOSIT COUNT", "NUMBER DEPOSIT"]);
@@ -64,7 +64,6 @@ function extractAndDisplayData() {
   const bonus = extractValue(lines, ["BONUS", "TOTAL BONUS", "TODAY BONUS", "BONUS AMOUNT"]);
   const totalUser = extractValue(lines, ["TOTAL USER"]);
 
-  // Set output
   const set = (id, val, flag) => {
     const el = document.getElementById(id);
     el.innerText = val;
@@ -79,7 +78,6 @@ function extractAndDisplayData() {
   set("bonus", bonus, +bonus > 10000);
   set("totalUser", totalUser);
 
-  // Set branch
   const branchName = extractBranchName(rawInput);
   document.getElementById("branch").innerText = branchName;
 }
@@ -111,4 +109,48 @@ function copyTableData() {
       btn.style.color = originalColor || '';
     }, 23);
   });
+}
+
+// ===================== LOGIN SYSTEM =====================
+window.onload = function () {
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    showMainContent();
+  } else {
+    showLoginScreen();
+  }
+
+  document.addEventListener("keydown", function (e) {
+    const loginVisible = document.getElementById("loginScreen").style.display !== "none";
+    if (e.key === "Enter" && loginVisible) {
+      checkLogin();
+    }
+  });
+};
+
+function checkLogin() {
+  const userId = document.getElementById("userId").value;
+  const password = document.getElementById("password").value;
+  const errorMsg = document.getElementById("errorMsg");
+
+  if (userId === "SKY360" && password === "Max07") {
+    localStorage.setItem("isLoggedIn", "true");
+    showMainContent();
+  } else {
+    errorMsg.textContent = "Invalid User ID or Password!";
+  }
+}
+
+function logout() {
+  localStorage.removeItem("isLoggedIn");
+  location.reload();
+}
+
+function showMainContent() {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("mainContent").style.display = "block";
+}
+
+function showLoginScreen() {
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("mainContent").style.display = "none";
 }
