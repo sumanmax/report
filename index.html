@@ -9,6 +9,9 @@
       height: 100%;
       margin: 0;
       font-family: Arial, sans-serif;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
     }
@@ -16,9 +19,14 @@
     .content {
       flex: 1;
       padding: 20px;
+      padding-bottom: 60px; /* space for footer */
     }
 
     .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
       text-align: center;
       font-weight: bold;
       font-size: 18px;
@@ -26,6 +34,7 @@
       padding: 10px;
       background-color: #f8f8f8;
       border-top: 1px solid #ccc;
+      z-index: 10;
     }
 
     textarea {
@@ -160,10 +169,10 @@
 
       <button onclick="copyTableData()" id="copyBtn">Copy</button>
     </div>
-
-    <!-- Sticky Footer -->
-    <div class="footer">C̷H̷E̷C̷K̷E̷R̷ ̷H̷E̷A̷D̷</div>
   </div>
+
+  <!-- Sticky Bottom Footer -->
+  <div class="footer">C̷H̷E̷C̷K̷E̷R̷ ̷H̷E̷A̷D̷</div>
 
   <script src="script.js"></script>
 </body>
