@@ -23,9 +23,6 @@
     }
 
     .footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
       width: 100%;
       text-align: center;
       font-weight: bold;
@@ -34,7 +31,8 @@
       padding: 10px;
       background-color: #f8f8f8;
       border-top: 1px solid #ccc;
-      z-index: 10;
+      position: relative; /* To ensure the footer moves with the content */
+      margin-top: auto; /* Ensures footer stays at the bottom of the page */
     }
 
     textarea {
@@ -133,7 +131,7 @@
           DATE: <input type="date" id="reportDate">
         </div>
         <div style="text-align: center; flex: 1;">
-          <h1 class="sky-title">𝕊𝕂𝕐𝔼𝕏ℂℍ ℝ𝔼ℙ𝕆ℝ𝕋</h1>
+          <h1 class="sky-title">𝕊𝕂𝕐𝔼𝕏ℂℍ ℝ𝔼ℕ𝕆ℝ𝕋</h1>
         </div>
         <div style="text-align: right;">
           <button onclick="logout()" style="padding: 6px 12px;">Logout</button>
@@ -171,7 +169,7 @@
     </div>
   </div>
 
-  <!-- Sticky Bottom Footer -->
+  <!-- Footer -->
   <div class="footer">C̷H̷E̷C̷K̷E̷R̷ ̷H̷E̷A̷D̷</div>
 
   <script src="script.js"></script>
